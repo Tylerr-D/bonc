@@ -29,7 +29,7 @@ func _physics_process(delta):
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			var body = enemy.get_node("CollisionShape2D")
 			if body.shape.get_rect().grow(5).has_point(body.to_local(global_position)):
-				enemy.queue_free()
+				enemy.take_damage()
 				queue_free()
 				return
 	life -= delta

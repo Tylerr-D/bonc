@@ -34,17 +34,18 @@ func _physics_process(delta):
 		direction.x = abs(direction.x)
 	if pos.x > screen.x - 20:
 		direction.x = -abs(direction.x)
-	if pos.y < 35:
+	if pos.y < 60:
 		direction.y = abs(direction.y)
 	if pos.y > screen.y - 35:
 		direction.y = -abs(direction.y)
-	pos = pos.clamp(Vector2(20, 35), screen - Vector2(20, 35))
+	pos = pos.clamp(Vector2(28, 60), screen - Vector2(28, 35))
 	global_position = get_canvas_transform().affine_inverse() * pos
 		
 func take_damage():
 	health -= 1
+	get_node("Hearts/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
 
 	if health <= 0:
-		get_tree().reload_current_scene()
+		queue_free()
 	
