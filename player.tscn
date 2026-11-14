@@ -16,7 +16,9 @@ texture = ExtResource("2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=146804424]
 shape = SubResource("RectangleShape2D_player")
 
-[node name="Shield" type="Line2D" parent="." unique_id=1218419070]
+[node name="ShieldPivot" type="Node2D" parent="." unique_id=820856167]
+
+[node name="Shield" type="Line2D" parent="ShieldPivot" unique_id=1218419070]
 position = Vector2(-26, 0)
 points = PackedVector2Array(7, -24, 4, -21, 0, -12, -3, -2, -4, 12, -2, 18, 1, 24)
 width = 2.0

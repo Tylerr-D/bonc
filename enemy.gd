@@ -27,3 +27,4 @@ func _physics_process(delta):
 		direction.y = abs(direction.y)
 	if pos.y > screen.y - 35:
 		direction.y = -abs(direction.y)
+		
