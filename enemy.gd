@@ -4,12 +4,17 @@ extends CharacterBody2D
 # these are popular things you could find if ya do a search
 var speed = 150
 var health = 3
+var flash_time = 0.0
 var direction = Vector2.ZERO
 var time = 0.0
 var shoot_time = 2.0
 var ball_scene = preload("res://ball.tscn")
 
 func _physics_process(delta):
+	if flash_time > 0:
+		flash_time -= delta
+		if flash_time <= 0:
+			$Sprite2D.modulate = Color.WHITE
 	shoot_time -= delta
 	if shoot_time <= 0:
 		var ball = ball_scene.instantiate()
@@ -45,6 +50,8 @@ func take_damage():
 	if health <= 0:
 		return
 	health -= 1
+	flash_time = 0.12
+	$Sprite2D.modulate = Color(1, 0.25, 0.25)
 	get_node("Hearts/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
 

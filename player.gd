@@ -2,9 +2,14 @@ extends CharacterBody2D
 
 var speed = 240
 var health = 3
+var flash_time = 0.0
 var recoil = Vector2.ZERO
 
 func _physics_process(delta):
+	if flash_time > 0:
+		flash_time -= delta
+		if flash_time <= 0:
+			$Sprite2D.modulate = Color.WHITE
 	# bleh 
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * speed + recoil
 	move_and_slide()
@@ -20,7 +25,11 @@ func _physics_process(delta):
 	$ShieldPivot.rotate(PI)
 
 func take_damage():
+	if health <= 0:
+		return
 	health -= 1
+	flash_time = 0.12
+	$Sprite2D.modulate = Color(1, 0.25, 0.25)
 	get_parent().get_node("HUD/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
 	if health <= 0:
