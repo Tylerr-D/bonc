@@ -15,3 +15,15 @@ func _physics_process(delta):
 
 	velocity = direction * speed
 	move_and_slide()
+	
+	var screen = get_viewport_rect().size
+	var pos = get_global_transform_with_canvas().origin
+
+	if pos.x < 20:
+		direction.x = abs(direction.x)
+	if pos.x > screen.x - 20:
+		direction.x = -abs(direction.x)
+	if pos.y < 35:
+		direction.y = abs(direction.y)
+	if pos.y > screen.y - 35:
+		direction.y = -abs(direction.y)
