@@ -20,6 +20,7 @@ func _physics_process(delta):
 			var closest = Geometry2D.get_closest_point_to_segment(global_position, start, end)
 			if global_position.distance_to(closest) <= 6:
 				var normal = (end - start).orthogonal().normalized()
+				get_parent().get_node("Player").recoil = direction * 180
 				direction = direction.bounce(normal)
 				reflected = true
 				global_position += direction * 7

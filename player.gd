@@ -2,11 +2,13 @@ extends CharacterBody2D
 
 var speed = 240
 var health = 3
+var recoil = Vector2.ZERO
 
 func _physics_process(delta):
 	# bleh 
-	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * speed
+	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * speed + recoil
 	move_and_slide()
+	recoil = recoil.move_toward(Vector2.ZERO, 600 * delta)
 	var screen = get_viewport_rect().size
 	var pos = get_global_transform_with_canvas().origin
 	pos = pos.clamp(Vector2(55, 55), screen - Vector2(55, 55))
@@ -18,8 +20,6 @@ func _physics_process(delta):
 	$ShieldPivot.rotate(PI)
 
 func take_damage():
-	if health <= 0:
-		return
 	health -= 1
 	get_parent().get_node("HUD/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
