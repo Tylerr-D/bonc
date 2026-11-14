@@ -23,13 +23,13 @@ position = Vector2(-5, 1)
 
 [node name="Shield" type="Line2D" parent="ShieldPivot" unique_id=1218419070]
 position = Vector2(-26, 0)
-points = PackedVector2Array(-1, -21, 4, -21, -1.007309, -7.4087067, -3, -2, -3, -2, -4, 12, -2, 18, 1, 24)
+points = PackedVector2Array(4, -38, -13, -36, -25, -27, -33, -18, -32, -8, -32, 3, -23, 18, 1, 24)
 width = 0.0
 default_color = Color(0, 0, 0, 1)
 antialiased = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ShieldPivot/Shield" unique_id=229239079]
 texture_filter = 1
-position = Vector2(6.0000005, -0.99999994)
-scale = Vector2(0.1, 0.1)
+position = Vector2(-2.999998, -7.000001)
+scale = Vector2(0.17304687, 0.14179687)
 texture = ExtResource("3")
