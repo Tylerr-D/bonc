@@ -38,6 +38,8 @@ func _physics_process(delta):
 		direction.y = abs(direction.y)
 	if pos.y > screen.y - 35:
 		direction.y = -abs(direction.y)
+	pos = pos.clamp(Vector2(20, 35), screen - Vector2(20, 35))
+	global_position = get_canvas_transform().affine_inverse() * pos
 		
 func take_damage():
 	health -= 1
