@@ -18,6 +18,8 @@ func _physics_process(delta):
 	$ShieldPivot.rotate(PI)
 
 func take_damage():
+	if health <= 0:
+		return
 	health -= 1
 	get_parent().get_node("HUD/Heart" + str(health + 1)).hide()
 	print("Health: ", health)

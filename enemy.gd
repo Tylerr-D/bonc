@@ -42,6 +42,8 @@ func _physics_process(delta):
 	global_position = get_canvas_transform().affine_inverse() * pos
 		
 func take_damage():
+	if health <= 0:
+		return
 	health -= 1
 	get_node("Hearts/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
