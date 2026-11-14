@@ -3,6 +3,7 @@ extends CharacterBody2D
 # so i aint writing ALL the scripts myself. 
 # these are popular things you could find if ya do a search
 var speed = 150
+var health = 3
 var direction = Vector2.ZERO
 var time = 0.0
 var shoot_time = 2.0
@@ -38,3 +39,10 @@ func _physics_process(delta):
 	if pos.y > screen.y - 35:
 		direction.y = -abs(direction.y)
 		
+func take_damage():
+	health -= 1
+	print("Health: ", health)
+
+	if health <= 0:
+		get_tree().reload_current_scene()
+	

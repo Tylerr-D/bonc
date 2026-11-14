@@ -4,6 +4,7 @@ var direction = Vector2.ZERO
 var speed = 220
 var life = 5.0
 var bounce_time = 0.0
+var reflected = false
 
 func _draw():
 	draw_arc(Vector2.ZERO, 5, 0, TAU, 24, Color.BLACK, 2, true)
@@ -20,9 +21,25 @@ func _physics_process(delta):
 			if global_position.distance_to(closest) <= 6:
 				var normal = (end - start).orthogonal().normalized()
 				direction = direction.bounce(normal)
+				reflected = true
 				global_position += direction * 7
 				bounce_time = 0.15
 				break
+	if reflected:
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			var body = enemy.get_node("CollisionShape2D")
+			if body.shape.get_rect().grow(5).has_point(body.to_local(global_position)):
+				enemy.queue_free()
+				queue_free()
+				return
 	life -= delta
 	if life <= 0:
 		queue_free()
+		
+	if not reflected:
+		var player = get_parent().get_node("Player")
+		if global_position.distance_to(player.global_position) < 21:
+			if player.has_method("take_damage"):
+				player.take_damage()
+			queue_free()
+			return
