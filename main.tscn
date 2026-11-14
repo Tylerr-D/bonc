@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="PackedScene" path="res://player.tscn" id="1"]
+
+[ext_resource type="PackedScene" path="res://enemy.tscn" id="2"]
 
 [node name="Main" type="Node2D"]
 
@@ -9,3 +11,6 @@ position = Vector2(576, 324)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
+
+[node name="Enemy" parent="." instance=ExtResource("2")]
+position = Vector2(780, 324)
