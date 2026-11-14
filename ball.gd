@@ -7,7 +7,7 @@ var bounce_time = 0.0
 var reflected = false
 
 func _draw():
-	draw_arc(Vector2.ZERO, 5, 0, TAU, 24, Color.BLACK, 2, true)
+	draw_arc(Vector2.ZERO, 5, 0, TAU, 24, Color(1, 0.95, 0.8), 2, true)
 
 func _physics_process(delta):
 	position += direction * speed * delta

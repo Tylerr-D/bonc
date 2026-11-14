@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" path="res://player.tscn" id="1"]
 
@@ -6,8 +6,23 @@
 
 [ext_resource type="Texture2D" path="res://heart.png" id="3"]
 
+[ext_resource type="Script" path="res://background.gd" id="4"]
+
 [node name="Main" type="Node2D"]
 script = ExtResource("2")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Arena" type="Control" parent="Background"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4")
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(576, 324)
@@ -39,7 +54,7 @@ offset_left = -140.0
 offset_top = 20.0
 offset_right = -20.0
 offset_bottom = 50.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
 theme_override_font_sizes/font_size = 24
 text = "Wave 1"
 horizontal_alignment = 2
