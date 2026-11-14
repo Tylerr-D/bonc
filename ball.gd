@@ -39,7 +39,6 @@ func _physics_process(delta):
 	if not reflected:
 		var player = get_parent().get_node("Player")
 		if global_position.distance_to(player.global_position) < 21:
-			if player.has_method("take_damage"):
-				player.take_damage()
+			player.take_damage()
 			queue_free()
 			return
