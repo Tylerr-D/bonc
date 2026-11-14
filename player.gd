@@ -19,6 +19,7 @@ func _physics_process(delta):
 
 func take_damage():
 	health -= 1
+	get_parent().get_node("HUD/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
 	if health <= 0:
 		get_tree().call_deferred("reload_current_scene")
