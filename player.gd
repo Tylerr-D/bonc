@@ -6,6 +6,8 @@ var flash_time = 0.0
 var recoil = Vector2.ZERO
 
 func _physics_process(delta):
+	if health <= 0:
+		return
 	if flash_time > 0:
 		flash_time -= delta
 		if flash_time <= 0:
@@ -42,4 +44,4 @@ func take_damage():
 	get_parent().get_node("HUD/Heart" + str(health + 1)).hide()
 	print("Health: ", health)
 	if health <= 0:
-		get_tree().call_deferred("reload_current_scene")
+		get_parent().die()
