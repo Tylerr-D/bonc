@@ -22,6 +22,7 @@ func _physics_process(delta):
 				direction = direction.bounce(normal)
 				global_position += direction * 7
 				bounce_time = 0.15
+				shield.get_node("../../AudioStreamPlayer2D").play()
 				break
 	life -= delta
 	if life <= 0:

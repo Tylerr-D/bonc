@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2led8tf2rirr" path="res://player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2"]
+[ext_resource type="AudioStream" uid="uid://docd8jmhlj37h" path="res://audio/dheerajakam4jor-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890.mp3" id="3_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(32, 32)
@@ -25,3 +26,8 @@ points = PackedVector2Array(7, -24, 4, -21, 0, -12, -3, -2, -4, 12, -2, 18, 1, 2
 width = 2.0
 default_color = Color(0, 0, 0, 1)
 antialiased = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=452411108]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=920477767]
+stream = ExtResource("3_i3pqv")

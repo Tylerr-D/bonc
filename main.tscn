@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://dtyisvbm3k01p"]
 
-[ext_resource type="PackedScene" path="res://player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://74tk27yheux0" path="res://player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://rmdywidosqu0" path="res://enemy.tscn" id="2"]
+[ext_resource type="AudioStream" uid="uid://docd8jmhlj37h" path="res://audio/dheerajakam4jor-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890.mp3" id="3_h2yge"]
 
-[ext_resource type="PackedScene" path="res://enemy.tscn" id="2"]
+[node name="Main" type="Node2D" unique_id=591933265]
 
-[node name="Main" type="Node2D"]
-
-[node name="Player" parent="." instance=ExtResource("1")]
+[node name="Player" parent="." unique_id=81806362 instance=ExtResource("1")]
 position = Vector2(576, 324)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=17669238]
 position = Vector2(576, 324)
 
-[node name="Enemy" parent="." instance=ExtResource("2")]
+[node name="Enemy" parent="." unique_id=1342965976 instance=ExtResource("2")]
 position = Vector2(780, 324)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=845888660]
+stream = ExtResource("3_h2yge")
