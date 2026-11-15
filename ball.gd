@@ -24,7 +24,7 @@ func _physics_process(delta):
 				get_parent().get_node("Player").recoil = direction * 180
 				direction = direction.bounce(normal)
 				reflected = true
-				global_position += direction * 7
+				global_position = closest + direction * (11 * $Sprite2D.scale.y + 7)
 				bounce_time = 0.15
 				break
 	$Sprite2D.rotation = direction.angle() - PI / 2

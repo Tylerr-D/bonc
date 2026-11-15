@@ -7,7 +7,7 @@ var health = 3
 var flash_time = 0.0
 var direction = Vector2.ZERO
 var time = 0.0
-var shoot_time = 2.0
+var shoot_time = 1.0
 var ball_scene = preload("res://ball.tscn")
 
 func _physics_process(delta):
@@ -22,7 +22,7 @@ func _physics_process(delta):
 		get_parent().add_child(ball)
 		ball.global_position = global_position + Vector2(16, -8)
 		ball.direction = (get_parent().get_node("Player").global_position - ball.global_position).normalized()
-		shoot_time = 2.0
+		shoot_time = 1.0
 
 	time -= delta
 
