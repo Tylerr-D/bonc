@@ -50,14 +50,13 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3")
 
 [node name="Wave" type="Label" parent="HUD"]
-anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -140.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 50.0
+offset_top = -100.0
+offset_bottom = 0.0
+mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
 theme_override_fonts/font = ExtResource("5")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Level 1"
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1

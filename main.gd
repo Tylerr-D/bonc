@@ -6,6 +6,7 @@ var counts = [2, 3, 5]
 var speeds = [80, 110, 150]
 var hearts = [2, 3, 2]
 var enemy_scene = preload("res://enemy.tscn")
+var title_tween
 
 func _process(delta):
 	if level < 3 and get_tree().get_nodes_in_group("enemies").is_empty():
@@ -25,6 +26,14 @@ func start_level():
 		ball.queue_free()
 	$HUD/Wave.text = "Level " + str(level)
 	var screen = get_viewport_rect().size
+	if title_tween:
+		title_tween.kill()
+	$HUD/Wave.position.y = -100
+	$HUD/Wave.modulate.a = 1
+	title_tween = create_tween()
+	title_tween.tween_property($HUD/Wave, "position:y", screen.y / 2 - 50, 0.65).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	title_tween.tween_interval(0.7)
+	title_tween.tween_property($HUD/Wave, "modulate:a", 0.0, 0.25)
 	var x = 60
 	if $Player.get_global_transform_with_canvas().origin.x < screen.x / 2:
 		x = screen.x - 60
