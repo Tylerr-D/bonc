@@ -61,4 +61,3 @@ func take_damage():
 		queue_free()
 	else:
 		get_parent().play_sound(preload("res://sounds/impactPunch_medium_000.ogg"))
-	

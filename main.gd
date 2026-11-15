@@ -8,6 +8,9 @@ var hearts = [2, 3, 2]
 var enemy_scene = preload("res://enemy.tscn")
 var title_tween
 
+func _ready():
+	$Music.stream.loop = true
+
 func _process(delta):
 	if level < 3 and get_tree().get_nodes_in_group("enemies").is_empty():
 		start_level()

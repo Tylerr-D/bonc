@@ -23,6 +23,7 @@ func _physics_process(delta):
 				var normal = (end - start).orthogonal().normalized()
 				get_parent().get_node("Player").recoil = direction * 180
 				direction = direction.bounce(normal)
+				aim_assist(normal)
 				reflected = true
 				global_position = closest + direction * (11 * $Sprite2D.scale.y + 7)
 				bounce_time = 0.15
@@ -45,3 +46,19 @@ func _physics_process(delta):
 			player.take_damage()
 			queue_free()
 			return
+
+func aim_assist(normal):
+	var nearest = null
+	var distance = INF
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var target = (enemy.global_position - global_position).normalized()
+		if enemy.is_queued_for_deletion() or abs(direction.angle_to(target)) > deg_to_rad(25):
+			continue
+		if direction.dot(normal) * target.dot(normal) <= 0:
+			continue
+		if global_position.distance_to(enemy.global_position) < distance:
+			nearest = enemy
+			distance = global_position.distance_to(enemy.global_position)
+	if nearest:
+		var target = (nearest.global_position - global_position).normalized()
+		direction = direction.rotated(clamp(direction.angle_to(target), -deg_to_rad(10), deg_to_rad(10)))

@@ -1,25 +1,24 @@
 [gd_scene format=3 uid="uid://74tk27yheux0"]
 
 [ext_resource type="Script" uid="uid://d2led8tf2rirr" path="res://player.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://d2e7vb7isma2u" path="res://player.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c128euhktrnsq" path="res://knight.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://dmknkyqjmudj3" path="res://shield.png" id="3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
-size = Vector2(41, 41)
+size = Vector2(40, 44)
 
 [node name="Player" type="CharacterBody2D" unique_id=1393142947]
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=62803279]
-scale = Vector2(0.25, 0.25)
+texture_filter = 1
+scale = Vector2(3, 3)
 texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=146804424]
-position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_player")
 
 [node name="ShieldPivot" type="Node2D" parent="." unique_id=820856167]
-position = Vector2(-5, 1)
 
 [node name="Shield" type="Line2D" parent="ShieldPivot" unique_id=1218419070]
 position = Vector2(-26, 0)
@@ -30,6 +29,6 @@ antialiased = true
 
 [node name="Sprite2D" type="Sprite2D" parent="ShieldPivot/Shield" unique_id=229239079]
 texture_filter = 1
-position = Vector2(-2.999998, -7.000001)
+position = Vector2(-3, -7)
 scale = Vector2(0.17304687, 0.14179687)
 texture = ExtResource("3")
