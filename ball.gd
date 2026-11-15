@@ -26,7 +26,7 @@ func _physics_process(delta):
 				reflected = true
 				global_position = closest + direction * (11 * $Sprite2D.scale.y + 7)
 				bounce_time = 0.15
-				shield.get_node("../../AudioStreamPlayer2D").play()
+				get_parent().play_sound(preload("res://sounds/impactMetal_medium_000.ogg"))
 				break
 	$Sprite2D.rotation = direction.angle() - PI / 2
 	if reflected:

@@ -16,6 +16,9 @@ func _ready():
 func _process(delta):
 	if starting:
 		return
+	if level == 3 and get_tree().get_nodes_in_group("enemies").is_empty():
+		win()
+		return
 	if level < 3 and get_tree().get_nodes_in_group("enemies").is_empty():
 		$Background/Arena.door_open = true
 		$Background/Arena.queue_redraw()
@@ -96,3 +99,15 @@ func die():
 	title_tween.tween_interval(1.2)
 	await title_tween.finished
 	get_tree().call_deferred("reload_current_scene")
+
+func win():
+	set_process(false)
+	$Player.set_physics_process(false)
+	for ball in get_tree().get_nodes_in_group("balls"):
+		ball.set_physics_process(false)
+		ball.queue_free()
+	if title_tween:
+		title_tween.kill()
+	$HUD/Wave.text = "YOU WON"
+	$HUD/Wave.position.y = get_viewport_rect().size.y / 2 - 50
+	$HUD/Wave.modulate = Color(0.2, 1, 0.3, 1)
