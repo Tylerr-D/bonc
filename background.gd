@@ -1,6 +1,7 @@
 extends Control
 
 var room = 1
+var door_open = false
 var tiles = preload("res://Dungeon_Tileset.png")
 var barrel = preload("res://props/barrel.png")
 var chest = preload("res://props/chest_closed.png")
@@ -9,6 +10,8 @@ var bones = preload("res://props/bone_pile.png")
 var skull = preload("res://props/skull.png")
 var torch = preload("res://props/torch_wall_anim.png")
 var candle = preload("res://props/candle_anim.png")
+var closed_door = preload("res://props/door_closed.png")
+var open_door = preload("res://props/door_open.png")
 
 func _ready():
 	resized.connect(queue_redraw)
@@ -53,6 +56,10 @@ func _draw():
 		draw_prop(skull, Vector2(size.x / 2, 100))
 	for x in [size.x * 0.2, size.x * 0.8]:
 		draw_texture_rect_region(torch, Rect2(x, 24, 32, 32), Rect2(0, 0, 16, 16))
+
+	if room < 3:
+		var door = open_door if door_open else closed_door
+		draw_texture_rect(door, Rect2(size.x / 2 - 24, 0, 48, 96), false)
 
 func draw_prop(texture, pos):
 	draw_texture_rect(texture, Rect2(pos, texture.get_size() * 2), false)

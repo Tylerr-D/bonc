@@ -7,20 +7,28 @@ var speeds = [80, 110, 150]
 var hearts = [2, 3, 2]
 var enemy_scene = preload("res://enemy.tscn")
 var title_tween
-var starting = false
+var starting = true
 
 func _ready():
 	$Music.stream.loop = true
+	start_level.call_deferred()
 
 func _process(delta):
-	if not starting and level < 3 and get_tree().get_nodes_in_group("enemies").is_empty():
-		start_level()
+	if starting:
+		return
+	if level < 3 and get_tree().get_nodes_in_group("enemies").is_empty():
+		$Background/Arena.door_open = true
+		$Background/Arena.queue_redraw()
+		var pos = $Player.get_global_transform_with_canvas().origin
+		if abs(pos.x - get_viewport_rect().size.x / 2) < 24 and pos.y <= 60:
+			start_level()
 
 func start_level():
 	starting = true
 	level += 1
 	saved_level = level
 	$Background/Arena.room = level
+	$Background/Arena.door_open = false
 	$Background/Arena.self_modulate = [Color(1.15, 1.05, 0.85), Color(0.75, 0.9, 1.2), Color(1.2, 0.65, 0.65)][level - 1]
 	$Background/Arena.queue_redraw()
 	$Player.health = 3
@@ -34,6 +42,8 @@ func start_level():
 		ball.queue_free()
 	$HUD/Wave.text = "Level " + str(level)
 	var screen = get_viewport_rect().size
+	if level > 1:
+		$Player.global_position = get_canvas_transform().affine_inverse() * Vector2(screen.x / 2, screen.y - 100)
 	if title_tween:
 		title_tween.kill()
 	$HUD/Wave.position.y = -100
