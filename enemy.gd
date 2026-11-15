@@ -5,6 +5,7 @@ extends CharacterBody2D
 var speed = 150
 var health = 3
 var flash_time = 0.0
+var rage = false
 var direction = Vector2.ZERO
 var time = 0.0
 var shoot_time = 1.5
@@ -15,6 +16,12 @@ func _physics_process(delta):
 		flash_time -= delta
 		if flash_time <= 0:
 			$Sprite2D.modulate = Color.WHITE
+	if not rage and get_tree().get_nodes_in_group("enemies").size() == 1:
+		rage = true
+		speed *= 1.5
+		shoot_time = min(shoot_time, 0.6)
+	if rage and flash_time <= 0:
+		$Sprite2D.modulate = Color(1, 0.5, 0.5)
 	shoot_time -= delta
 	if shoot_time <= 0:
 		get_parent().play_sound(preload("res://sounds/knifeSlice.ogg"))
@@ -22,7 +29,7 @@ func _physics_process(delta):
 		get_parent().add_child(ball)
 		ball.global_position = global_position + Vector2(16, -8)
 		ball.direction = (get_parent().get_node("Player").global_position - ball.global_position).normalized()
-		shoot_time = 1.5
+		shoot_time = 0.6 if rage else 1.5
 
 	time -= delta
 
