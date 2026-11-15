@@ -16,6 +16,14 @@ func _physics_process(delta):
 	recoil = recoil.move_toward(Vector2.ZERO, 600 * delta)
 	var screen = get_viewport_rect().size
 	var pos = get_global_transform_with_canvas().origin
+	if pos.x <= 55:
+		recoil.x = 400
+	if pos.x >= screen.x - 55:
+		recoil.x = -400
+	if pos.y <= 55:
+		recoil.y = 400
+	if pos.y >= screen.y - 55:
+		recoil.y = -400
 	pos = pos.clamp(Vector2(55, 55), screen - Vector2(55, 55))
 	global_position = get_canvas_transform().affine_inverse() * pos
 
