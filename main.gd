@@ -36,3 +36,11 @@ func start_level():
 		add_child(enemy)
 		enemy.get_node("Hearts/Heart3").visible = enemy.health == 3
 		enemy.global_position = get_canvas_transform().affine_inverse() * pos
+
+func play_sound(sound):
+	var audio = AudioStreamPlayer.new()
+	audio.stream = sound
+	audio.volume_db = -22
+	add_child(audio)
+	audio.finished.connect(audio.queue_free)
+	audio.play()

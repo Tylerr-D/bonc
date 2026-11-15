@@ -17,6 +17,7 @@ func _physics_process(delta):
 			$Sprite2D.modulate = Color.WHITE
 	shoot_time -= delta
 	if shoot_time <= 0:
+		get_parent().play_sound(preload("res://sounds/knifeSlice.ogg"))
 		var ball = ball_scene.instantiate()
 		get_parent().add_child(ball)
 		ball.global_position = global_position + Vector2(16, -8)
@@ -56,5 +57,8 @@ func take_damage():
 	print("Health: ", health)
 
 	if health <= 0:
+		get_parent().play_sound(preload("res://sounds/impactWood_heavy_000.ogg"))
 		queue_free()
+	else:
+		get_parent().play_sound(preload("res://sounds/impactPunch_medium_000.ogg"))
 	

@@ -19,6 +19,7 @@ func _physics_process(delta):
 			var end = shield.to_global(shield.points[i + 1])
 			var closest = Geometry2D.get_closest_point_to_segment(global_position, start, end)
 			if global_position.distance_to(closest) <= 6:
+				get_parent().play_sound(preload("res://sounds/impactMetal_medium_000.ogg"))
 				var spark = preload("res://spark.gd").new()
 				get_parent().add_child(spark)
 				spark.global_position = closest

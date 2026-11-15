@@ -27,6 +27,7 @@ func _physics_process(delta):
 func take_damage():
 	if health <= 0:
 		return
+	get_parent().play_sound(preload("res://sounds/impactPunch_medium_000.ogg"))
 	health -= 1
 	flash_time = 0.12
 	$Sprite2D.modulate = Color(1, 0.25, 0.25)
