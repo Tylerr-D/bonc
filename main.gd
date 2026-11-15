@@ -20,6 +20,9 @@ func start_level():
 	starting = true
 	level += 1
 	saved_level = level
+	$Background/Arena.room = level
+	$Background/Arena.self_modulate = [Color(1.15, 1.05, 0.85), Color(0.75, 0.9, 1.2), Color(1.2, 0.65, 0.65)][level - 1]
+	$Background/Arena.queue_redraw()
 	$Player.health = 3
 	$Player.recoil = Vector2.ZERO
 	$Player.flash_time = 0
