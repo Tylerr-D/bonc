@@ -4,9 +4,7 @@ var direction = Vector2.ZERO
 var speed = 220
 var life = 5.0
 var bounce_time = 0.0
-
-func _draw():
-	draw_arc(Vector2.ZERO, 5, 0, TAU, 24, Color.BLACK, 2, true)
+var reflected = false
 
 func _physics_process(delta):
 	position += direction * speed * delta
@@ -18,12 +16,50 @@ func _physics_process(delta):
 			var end = shield.to_global(shield.points[i + 1])
 			var closest = Geometry2D.get_closest_point_to_segment(global_position, start, end)
 			if global_position.distance_to(closest) <= 6:
+				get_parent().play_sound(preload("res://sounds/impactMetal_medium_000.ogg"))
+				var spark = preload("res://spark.gd").new()
+				get_parent().add_child(spark)
+				spark.global_position = closest
 				var normal = (end - start).orthogonal().normalized()
+				get_parent().get_node("Player").recoil = direction * 180
 				direction = direction.bounce(normal)
-				global_position += direction * 7
+				aim_assist(normal)
+				reflected = true
+				global_position = closest + direction * (11 * $Sprite2D.scale.y + 7)
 				bounce_time = 0.15
 				shield.get_node("../../AudioStreamPlayer2D").play()
 				break
+	$Sprite2D.rotation = direction.angle() - PI / 2
+	if reflected:
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			var body = enemy.get_node("CollisionShape2D")
+			if body.shape.get_rect().grow(5).has_point(body.to_local(global_position)):
+				enemy.take_damage()
+				queue_free()
+				return
 	life -= delta
 	if life <= 0:
 		queue_free()
+		
+	if not reflected:
+		var player = get_parent().get_node("Player")
+		if global_position.distance_to(player.global_position) < 21:
+			player.take_damage()
+			queue_free()
+			return
+
+func aim_assist(normal):
+	var nearest = null
+	var distance = INF
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var target = (enemy.global_position - global_position).normalized()
+		if enemy.is_queued_for_deletion() or abs(direction.angle_to(target)) > deg_to_rad(25):
+			continue
+		if direction.dot(normal) * target.dot(normal) <= 0:
+			continue
+		if global_position.distance_to(enemy.global_position) < distance:
+			nearest = enemy
+			distance = global_position.distance_to(enemy.global_position)
+	if nearest:
+		var target = (nearest.global_position - global_position).normalized()
+		direction = direction.rotated(clamp(direction.angle_to(target), -deg_to_rad(10), deg_to_rad(10)))
