@@ -1,19 +1,74 @@
-[gd_scene format=3 uid="uid://dtyisvbm3k01p"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="PackedScene" uid="uid://74tk27yheux0" path="res://player.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://rmdywidosqu0" path="res://enemy.tscn" id="2"]
-[ext_resource type="AudioStream" uid="uid://docd8jmhlj37h" path="res://audio/dheerajakam4jor-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890.mp3" id="3_h2yge"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="1"]
 
-[node name="Main" type="Node2D" unique_id=591933265]
+[ext_resource type="Script" path="res://main.gd" id="2"]
 
-[node name="Player" parent="." unique_id=81806362 instance=ExtResource("1")]
+[ext_resource type="Texture2D" path="res://heart.png" id="3"]
+
+[ext_resource type="Script" path="res://background.gd" id="4"]
+
+[ext_resource type="FontFile" path="res://fonts/MetalMania-Regular.ttf" id="5"]
+
+[ext_resource type="AudioStream" path="res://music/underclocked.mp3" id="6"]
+
+[ext_resource type="AudioStream" path="res://audio/dheerajakam4jor-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890.mp3" id="teammate_audio"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("2")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Arena" type="Control" parent="Background"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4")
+
+[node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(576, 324)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=17669238]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
-[node name="Enemy" parent="." unique_id=1342965976 instance=ExtResource("2")]
-position = Vector2(780, 324)
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=845888660]
-stream = ExtResource("3_h2yge")
+[node name="Heart1" type="Sprite2D" parent="HUD"]
+position = Vector2(36, 36)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3")
+
+[node name="Heart2" type="Sprite2D" parent="HUD"]
+position = Vector2(84, 36)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3")
+
+[node name="Heart3" type="Sprite2D" parent="HUD"]
+position = Vector2(132, 36)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3")
+
+[node name="Wave" type="Label" parent="HUD"]
+anchor_right = 1.0
+offset_top = -100.0
+offset_bottom = 0.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_fonts/font = ExtResource("5")
+theme_override_font_sizes/font_size = 64
+text = "Level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6")
+volume_db = -26.0
+autoplay = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("teammate_audio")
