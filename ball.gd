@@ -6,9 +6,6 @@ var life = 5.0
 var bounce_time = 0.0
 var reflected = false
 
-func _draw():
-	draw_arc(Vector2.ZERO, 5, 0, TAU, 24, Color(1, 0.95, 0.8), 2, true)
-
 func _physics_process(delta):
 	position += direction * speed * delta
 	bounce_time -= delta
@@ -30,6 +27,7 @@ func _physics_process(delta):
 				global_position += direction * 7
 				bounce_time = 0.15
 				break
+	$Sprite2D.rotation = direction.angle() - PI / 2
 	if reflected:
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			var body = enemy.get_node("CollisionShape2D")
